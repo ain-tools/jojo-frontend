@@ -1,6 +1,6 @@
-# FrontendSecondtry
+# Jojo Front-end
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.8.
+The front end to a multiplayer card game made with angular.
 
 ## Development server
 
