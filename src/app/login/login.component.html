@@ -1,0 +1,32 @@
+<div *ngIf="errorWarning" style="width:80%;text-align:center;margin:auto;background-color:red;margin-top:10%;margin-bottom: -10%"><h1>Error, please try again. {{response}}</h1></div>
+<div *ngIf="!toggleRegistration" >
+  <div style="width:30%;margin:auto;background-image: url(../../assets/backgrounds/stat-back.jpg);background-size: contain;border-radius: 10%;height:50vh;border:solid orange;margin-top:15%;">
+    <input #username type="text" placeholder="Username.." style="width:89%;padding:5%;margin-top:7%;border:solid orange;border-radius: 10px;">
+    <input #password type="password" placeholder="Password.." style="width:89%;padding:5%;margin-top:7%;border:solid orange;border-radius: 10px;">
+    <div (click)="login(username.value,password.value)" style="margin:auto;" class="single">
+      <p>Log In</p>
+    </div>
+    <div (click)="toggleToRegister()" style="margin:auto;" class="single">
+      <p>Register</p>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="toggleRegistration" >
+  <div style="width:30%;margin:auto;background-image: url(../../assets/backgrounds/stat-back.jpg);background-size: contain;border-radius: 10%;height:60vh;border:solid orange;margin-top:12%;">
+    <input #username type="text" placeholder="Username.." style="width:89%;padding:5%;margin-top:7%;border:solid orange;border-radius: 10px;">
+    <input #password type="password" placeholder="Password.." style="width:89%;padding:5%;margin-top:7%;border:solid orange;border-radius: 10px;">
+    <input #repeatPassword type="password" placeholder="Repeat Password.." style="width:89%;padding:5%;border:solid orange;border-radius: 10px;">
+    <div (click)="register(username.value,password.value,repeatPassword.value)" style="margin:auto;" class="single">
+      <p>Create Account</p>
+    </div>
+    <div (click)="toggleToRegister()" style="margin:auto;" class="single">
+      <p>Log In</p>
+    </div>
+  </div>
+</div>
+
+<div (click)="goToMenu()" style="position:absolute;bottom:5px;left:5px;width:300px;" class="single">
+  <p style="margin-top:5px;">
+    < Back</p> 
+</div>

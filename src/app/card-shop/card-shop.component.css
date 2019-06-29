@@ -1,0 +1,66 @@
+
+.single {
+    bottom:330px;
+    right:300px;
+    height:50px;
+    width:300px;
+    background:#790197;
+    text-align:center;
+    font-size:30px;
+    background-size: 1px 300%;
+    -webkit-transition:0.5s;
+    transition:0.5s;
+    color:orange;
+    font-family: 'Germania One', cursive;  
+    cursor:pointer;
+  }
+  
+  .single:hover {
+    background:yellow;
+    color:white;
+    -webkit-transform:rotate(-1deg);
+    transform:rotate(-2deg);
+  }
+  
+  .single p {
+    position:relative;
+    top:2px;
+    right:4px;
+  }
+  
+  /* width */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: transparent; 
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888; 
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+  }
+  .circle {
+    height: 35px;
+    width: 35px;
+    margin-top:-5px;
+    margin-left:5px;
+    background-color: rgb(179, 177, 35);
+    border-radius: 50%;
+    float:left;
+  }
+  .square {
+    height: 35px;
+    width: 35px;
+    margin-top:-5px;
+    margin-left:5px;
+    background-color: rgb(219, 21, 21);
+    float:left;
+  }

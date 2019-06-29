@@ -1,0 +1,487 @@
+<div *ngIf="castHeroSpellSelected" id="arrow"> <div id="triangle-up"></div> </div>
+<div style="display:none" id="cardArrow"> <div id="triangle-up"></div> </div>
+<div class="wrapper" style="height:99.9vh;width:100vw;position:absolute;top:0px;left:0px;z-index:-10;">
+  <div *ngIf="opponentTurn" style="background-color:rgb(0, 0, 0,0.3);width:100vw;height:65vh;position:absolute;bottom:0px;">
+    <h1 style="color:red;text-align:center;-webkit-text-stroke: 1px black;">Opponent's Turn ({{timeLimit}} sec)</h1>
+  </div>
+  <div *ngIf="notWinner || isWinner"
+    style="position: absolute;width:100vw;height:100vh;top:0px;left:0px;background-color:black;opacity:0.5;z-index:1000">
+  </div>
+  <div
+    style="position: absolute;height:400px;width:550px;background-image: url(../../assets/backgrounds/stat-back.jpg);border-radius: 40px;margin-top:50%;margin-left:50%;top:-650px;left:-270px;z-index:2000"
+    *ngIf="notWinner || isWinner">
+    <i *ngIf="notWinner" style="font-size:100px;text-align: center;text-align:center;margin-left:40%;margin-top:5%;"
+      class="fas fa-skull"></i>
+    <i *ngIf="isWinner" style="font-size:100px;text-align: center;text-align:center;margin-left:40%;margin-top:5%;"
+      class="fab fa-angellist"></i>
+    <h1 *ngIf="notWinner" style="text-align: center;">You lost! Git gud.</h1>
+    <h1 *ngIf="isWinner" style="text-align: center;">You won!</h1>
+    <p style="text-align: center"><b>Cash : {{playerInfo.cash}}</b></p>
+    <p style="text-align: center"><b>Games Played : {{playerInfo.gamesPlayed}}</b></p>
+    <p style="text-align: center"><b>Wins : {{playerInfo.wins}}</b></p>
+    <p style="text-align: center"><b>Losses : {{playerInfo.losses}}</b></p>
+    <p style="text-align: center"><b>Stands Bought : {{playerInfo.standsBought}}</b></p>
+    <div (click)="returnMenu()" style="margin-left:30%;width:40%;margin-top:-20px;z-index:10000;cursor: pointer"
+      class="single">
+      <p>Return to menu</p>
+    </div>
+  </div>
+  <div
+    style="width:99.7%;background-image: url(../../assets/backgrounds/stat-back.jpg);background-size: contain;height:20%;border:solid black;position:absolute;bottom:0.1%;">
+    <div *ngIf="cards[8]" #cardElement1 class="{{cards[8].nameOfCard}} deckCard" (click)="layCard(cards[8].nameOfCard)"
+      (mouseenter)="cardShowOnHover(cardElement1,cards[8])" (mouseleave)="cardShowOffHover(cardElement1,cards[8])"
+      style="border:solid black;background-color:orange;width:150px;position: absolute;margin-top:-5%;z-index:-1;transform: rotate(-20deg);margin-left:25%;background-image: url(../../assets/backgrounds/card-background.jpg)">
+      <i style="font-size:20px;margin-left:5px;margin-top:5px;color:blue;"
+        class="fas fa-adjust">{{cards[8].manaCost}}</i>
+      <h3 style="text-align:center;margin-top:-2px;margin-bottom:-2px;height:18px;overflow:hidden;">{{cards[8].nameOfCard}}</h3>
+      <img style="height:45%;width:80%;margin-left:10%;margin-top:10px;" src="{{cards[8].imgURL}}">
+      <b style="margin-left:5px;">{{cards[8].specialAbility}}</b>
+      <hr>
+      <h2 style="font-size:100%;height:35px;overflow:hidden;margin-bottom: 1px">{{cards[8].abilityDesc}}</h2>
+      <div style="width:100%;margin:auto;">
+        <i style="font-size:20px;margin-left:5px;color:red" class="fas fa-heart">{{cards[8].hp}}</i>
+        <i style="font-size:20px;margin-left:5px;color:rgb(240, 182, 25)"
+          class="fas fa-fist-raised">{{-(cards[8].attack)}}</i>
+      </div>
+    </div>
+    <div *ngIf="cards[5]" #cardElement2 class="{{cards[5].nameOfCard}} deckCard" (click)="layCard(cards[5].nameOfCard)"
+      (mouseenter)="cardShowOnHover(cardElement2,cards[5])" (mouseleave)="cardShowOffHover(cardElement2,cards[5])"
+      style="border:solid black;width:150px;position: absolute;margin-top:-7%;z-index:-1;transform: rotate(-15deg);margin-left:30%;background-image: url(../../assets/backgrounds/card-background.jpg)">
+      <i style="font-size:20px;margin-left:5px;margin-top:5px;color:blue;"
+        class="fas fa-adjust">{{cards[5].manaCost}}</i>
+      <h3 style="text-align:center;margin-top:-2px;margin-bottom:-2px;height:18px;overflow:hidden;">{{cards[5].nameOfCard}}</h3>
+      <img style="height:45%;width:80%;margin-left:10%;margin-top:10px;" src="{{cards[5].imgURL}}">
+      <b style="margin-left:5px;">{{cards[5].specialAbility}}</b>
+      <hr>
+      <h2 style="font-size:100%;height:35px;overflow:hidden;margin-bottom: 1px">{{cards[5].abilityDesc}}</h2>
+      <div style="width:100%;margin:auto;">
+        <i style="font-size:20px;margin-left:5px;color:red" class="fas fa-heart">{{cards[5].hp}}</i>
+        <i style="font-size:20px;margin-left:5px;color:rgb(240, 182, 25)"
+          class="fas fa-fist-raised">{{-(cards[5].attack)}}</i>
+      </div>
+    </div>
+    <div *ngIf="cards[3]" #cardElement3 class="{{cards[3].nameOfCard}} deckCard" (click)="layCard(cards[3].nameOfCard)"
+      (mouseenter)="cardShowOnHover(cardElement3,cards[3])" (mouseleave)="cardShowOffHover(cardElement3,cards[3])"
+      style="border:solid black;background-color:orange;width:150px;position: absolute;margin-top:-8%;z-index:-1;transform: rotate(-10deg);margin-left:35%;background-image: url(../../assets/backgrounds/card-background.jpg)">
+      <i style="font-size:20px;margin-left:5px;margin-top:5px;color:blue;"
+        class="fas fa-adjust">{{cards[3].manaCost}}</i>
+      <h3 style="text-align:center;margin-top:-2px;margin-bottom:-2px;height:18px;overflow:hidden;">{{cards[3].nameOfCard}}</h3>
+      <img style="height:45%;width:80%;margin-left:10%;margin-top:10px;" src="{{cards[3].imgURL}}">
+      <b style="margin-left:5px;">{{cards[3].specialAbility}}</b>
+      <hr>
+      <h2 style="font-size:100%;height:35px;overflow:hidden;margin-bottom: 1px">{{cards[3].abilityDesc}}</h2>
+      <div style="width:100%;margin:auto;">
+        <i style="font-size:20px;margin-left:5px;color:red" class="fas fa-heart">{{cards[3].hp}}</i>
+        <i style="font-size:20px;margin-left:5px;color:rgb(240, 182, 25)"
+          class="fas fa-fist-raised">{{-(cards[3].attack)}}</i>
+      </div>
+    </div>
+    <div *ngIf="cards[1]" #cardElement4 class="{{cards[1].nameOfCard}} deckCard" (click)="layCard(cards[1].nameOfCard)"
+      (mouseenter)="cardShowOnHover(cardElement4,cards[1])" (mouseleave)="cardShowOffHover(cardElement4,cards[1])"
+      style="border:solid black;background-color:purple;width:150px;position: absolute;margin-top:-9%;z-index:-1;transform: rotate(-5deg);margin-left:40%;background-image: url(../../assets/backgrounds/card-background.jpg)">
+      <i style="font-size:20px;margin-left:5px;margin-top:5px;color:blue;"
+        class="fas fa-adjust">{{cards[1].manaCost}}</i>
+      <h3 style="text-align:center;margin-top:-2px;margin-bottom:-2px;height:18px;overflow:hidden;">{{cards[1].nameOfCard}}</h3>
+      <img style="height:45%;width:80%;margin-left:10%;margin-top:10px;" src="{{cards[1].imgURL}}">
+      <b style="margin-left:5px;">{{cards[1].specialAbility}}</b>
+      <hr>
+      <h2 style="font-size:100%;height:35px;overflow:hidden;margin-bottom: 1px">{{cards[1].abilityDesc}}</h2>
+      <div style="width:100%;margin:auto;">
+        <i style="font-size:20px;margin-left:5px;color:red" class="fas fa-heart">{{cards[1].hp}}</i>
+        <i style="font-size:20px;margin-left:5px;color:rgb(240, 182, 25)"
+          class="fas fa-fist-raised">{{-(cards[1].attack)}}</i>
+      </div>
+    </div>
+    <div *ngIf="cards[0]" #cardElement5 class="{{cards[0].nameOfCard}} deckCard" (click)="layCard(cards[0].nameOfCard)"
+      (mouseenter)="cardShowOnHover(cardElement5,cards[0])" (mouseleave)="cardShowOffHover(cardElement5,cards[0])"
+      style="border:solid black;background-color:orange;width:150px;position: absolute;margin-top:-9%;z-index:-1;transform: rotate(0deg);margin-left:45%;background-image: url(../../assets/backgrounds/card-background.jpg)">
+      <i style="font-size:20px;margin-left:5px;margin-top:5px;color:blue;"
+        class="fas fa-adjust">{{cards[0].manaCost}}</i>
+      <h3 style="text-align:center;margin-top:-2px;margin-bottom:-2px;height:18px;overflow:hidden;">{{cards[0].nameOfCard}}</h3>
+      <img style="height:45%;width:80%;margin-left:10%;margin-top:10px;" src="{{cards[0].imgURL}}">
+      <b style="margin-left:5px;">{{cards[0].specialAbility}}</b>
+      <hr>
+      <h2 style="font-size:100%;height:35px;overflow:hidden;margin-bottom: 1px">{{cards[0].abilityDesc}}</h2>
+      <div style="width:100%;margin:auto;">
+        <i style="font-size:20px;margin-left:5px;color:red" class="fas fa-heart">{{cards[0].hp}}</i>
+        <i style="font-size:20px;margin-left:5px;color:rgb(240, 182, 25)"
+          class="fas fa-fist-raised">{{-(cards[0].attack)}}</i>
+      </div>
+    </div>
+    <div *ngIf="cards[2]" #cardElement6 class="{{cards[2].nameOfCard}} deckCard" (click)="layCard(cards[2].nameOfCard)"
+      (mouseenter)="cardShowOnHover(cardElement6,cards[2])" (mouseleave)="cardShowOffHover(cardElement6,cards[2])"
+      style="border:solid black;width:150px;position: absolute;margin-top:-9%;z-index:-1;transform: rotate(5deg);margin-left:50%;background-image: url(../../assets/backgrounds/card-background.jpg)">
+      <i style="font-size:20px;margin-left:5px;margin-top:5px;color:blue;"
+        class="fas fa-adjust">{{cards[2].manaCost}}</i>
+      <h3 style="text-align:center;margin-top:-2px;margin-bottom:-2px;height:18px;overflow:hidden;">{{cards[2].nameOfCard}}</h3>
+      <img style="height:45%;width:80%;margin-left:10%;margin-top:10px;" src="{{cards[2].imgURL}}">
+      <b style="margin-left:5px;">{{cards[2].specialAbility}}</b>
+      <hr>
+      <h2 style="font-size:100%;height:35px;overflow:hidden;margin-bottom: 1px">{{cards[2].abilityDesc}}</h2>
+      <div style="width:100%;margin:auto;">
+        <i style="font-size:20px;margin-left:5px;color:red" class="fas fa-heart">{{cards[2].hp}}</i>
+        <i style="font-size:20px;margin-left:5px;color:rgb(240, 182, 25)"
+          class="fas fa-fist-raised">{{-(cards[2].attack)}}</i>
+      </div>
+    </div>
+    <div *ngIf="cards[4]" #cardElement7 class="{{cards[4].nameOfCard}} deckCard" (click)="layCard(cards[4].nameOfCard)"
+      (mouseenter)="cardShowOnHover(cardElement7,cards[4])" (mouseleave)="cardShowOffHover(cardElement7,cards[4])"
+      style="border:solid black;width:150px;position: absolute;margin-top:-8%;z-index:-1;transform: rotate(10deg);margin-left:55%;background-image: url(../../assets/backgrounds/card-background.jpg)">
+      <i style="font-size:20px;margin-left:5px;margin-top:5px;color:blue;"
+        class="fas fa-adjust">{{cards[4].manaCost}}</i>
+      <h3 style="text-align:center;margin-top:-2px;margin-bottom:-2px;height:18px;overflow:hidden;">{{cards[4].nameOfCard}}</h3>
+      <img style="height:45%;width:80%;margin-left:10%;margin-top:10px;" src="{{cards[4].imgURL}}">
+      <b style="margin-left:5px;">{{cards[4].specialAbility}}</b>
+      <hr>
+      <h2 style="font-size:100%;height:35px;overflow:hidden;margin-bottom: 1px">{{cards[4].abilityDesc}}</h2>
+      <div style="width:100%;margin:auto;">
+        <i style="font-size:20px;margin-left:5px;color:red" class="fas fa-heart">{{cards[4].hp}}</i>
+        <i style="font-size:20px;margin-left:5px;color:rgb(240, 182, 25)"
+          class="fas fa-fist-raised">{{-(cards[4].attack)}}</i>
+      </div>
+    </div>
+    <div *ngIf="cards[6]" #cardElement8 class="{{cards[6].nameOfCard}} deckCard" (click)="layCard(cards[6].nameOfCard)"
+      (mouseenter)="cardShowOnHover(cardElement8,cards[6])" (mouseleave)="cardShowOffHover(cardElement8,cards[6])"
+      style="border:solid black;width:150px;position: absolute;margin-top:-7%;z-index:-1;transform: rotate(15deg);margin-left:60%;background-image: url(../../assets/backgrounds/card-background.jpg)">
+      <i style="font-size:20px;margin-left:5px;margin-top:5px;color:blue;"
+        class="fas fa-adjust">{{cards[6].manaCost}}</i>
+      <h3 style="text-align:center;margin-top:-2px;margin-bottom:-2px;height:18px;overflow:hidden;">{{cards[6].nameOfCard}}</h3>
+      <img style="height:45%;width:80%;margin-left:10%;margin-top:10px;" src="{{cards[6].imgURL}}">
+      <b style="margin-left:5px;">{{cards[6].specialAbility}}</b>
+      <hr>
+      <h2 style="font-size:100%;height:35px;overflow:hidden;margin-bottom: 1px">{{cards[6].abilityDesc}}</h2>
+      <div style="width:100%;margin:auto;">
+        <i style="font-size:20px;margin-left:5px;color:red" class="fas fa-heart">{{cards[6].hp}}</i>
+        <i style="font-size:20px;margin-left:5px;color:rgb(240, 182, 25)"
+          class="fas fa-fist-raised">{{-(cards[6].attack)}}</i>
+      </div>
+    </div>
+    <div *ngIf="cards[7]" #cardElement9 class="{{cards[7].nameOfCard}} deckCard" (click)="layCard(cards[7].nameOfCard)"
+      (mouseenter)="cardShowOnHover(cardElement9,cards[7])" (mouseleave)="cardShowOffHover(cardElement9,cards[7])"
+      style="border:solid black;width:150px;position: absolute;margin-top:-5%;z-index:-1;transform: rotate(20deg);margin-left:65%;background-image: url(../../assets/backgrounds/card-background.jpg)">
+      <i style="font-size:20px;margin-left:5px;margin-top:5px;color:blue;"
+        class="fas fa-adjust">{{cards[7].manaCost}}</i>
+      <h3 style="text-align:center;margin-top:-2px;margin-bottom:-2px;height:18px;overflow:hidden;">{{cards[7].nameOfCard}}</h3>
+      <img style="height:45%;width:80%;margin-left:10%;margin-top:10px;" src="{{cards[7].imgURL}}">
+      <b style="margin-left:5px;">{{cards[7].specialAbility}}</b>
+      <hr>
+      <h2 style="font-size:100%;height:35px;overflow:hidden;margin-bottom: 1px">{{cards[7].abilityDesc}}</h2>
+      <div style="width:100%;margin:auto;">
+        <i style="font-size:20px;margin-left:5px;color:red" class="fas fa-heart">{{cards[7].hp}}</i>
+        <i style="font-size:20px;margin-left:5px;color:rgb(240, 182, 25)"
+          class="fas fa-fist-raised">{{-(cards[7].attack)}}</i>
+      </div>
+    </div>
+    <img *ngIf="gameroomObject" style="height:100%;margin:auto;position: absolute;"
+      src="../../assets/hero-stats/{{gameroomObject.heroOfPlayer}}.png">
+    <div
+      style="border:solid;height:20%;width:30%;position: absolute;margin-left:11%;margin-top:1%;background-color: red">
+      <div id="hpBarHero" style="height:100%;background-color: green;">
+        {{hpOfHero}}/{{maxHpOfHero}}
+      </div>
+    </div>
+    <div
+      style="border:solid;height:20%;width:30%;position: absolute;margin-left:11%;margin-top:5%;background-color: red">
+      <div id="manaBarHero" style="height:100%;background-color: blue;">
+        {{manaOfHero}}/{{maxManaOfHero}}
+      </div>
+    </div>
+    <div (click)="endTurn()" style="margin-left:58%;width:10%;margin-bottom: -80px;z-index:10000;cursor: pointer"
+      class="single">
+      <p>End Turn</p>
+    </div>
+    <div (click)="forfeitGame()" style="margin-left:70%;width:20%;margin-bottom: -80px;z-index:10000;" class="single">
+      <p>Forfeit Match</p>
+    </div>
+    <div (click)="heroSpellSelector()"
+      style="margin-left:58%;margin-top:6%;padding-left:5px;padding-right:5px;margin-bottom: -141px;z-index:10000;"
+      class="single">
+      <p *ngIf="gameroomObject" style="height:100%;overflow:hidden;"><i class="fas fa-fist-raised"></i> {{gameroomObject.abilityOfPlayer}}</p>
+    </div>
+    <div class="{{gameroomObject.nameOfPlayer}} playerHero" *ngIf="castSpellSelected" style="position:absolute;height:150px;width:150px;margin-left:44.20%;bottom:0px;background-color: red;opacity: 0.3"></div>
+    <div *ngIf="gameroomObject" style="position: absolute;margin-left:11.5%;margin-top:6.5%;color:black;z-index:9000"><h2>{{gameroomObject.nameOfPlayer}}</h2></div>
+    <img *ngIf="gameroomObject" src="../../assets/heroportraits/{{gameroomObject.heroOfPlayer}}.png"
+      style="height:100%;margin:auto;margin-left:44%;border:solid black;margin-top:-0.5vw;">
+    <h3 style="position: absolute;top:-10px;margin-left:58%;"><span *ngIf="!opponentTurn">Time Remaining: {{timeLimit}} sec</span><span *ngIf="opponentTurn">Opponent's Turn</span></h3>
+  </div>
+
+  <div
+    style="width:99.7%;height:9%;position: absolute;background-image: url(../../assets/backgrounds/stat-back.jpg);top:0px;border:solid black">
+    <div
+      style="border:solid;height:20%;width:30%;position: absolute;margin-left:13%;margin-top:1%;background-color: red">
+      <div id="hpBarEnnemy" style="height:100%;background-color: green;">
+        {{hpOfEnnemy}}/{{maxHpOfEnnemy}}
+      </div>
+    </div>
+    <div
+      style="border:solid;height:20%;width:30%;position: absolute;margin-left:55%;margin-top:1.10%;background-color: red;">
+      <div id="manaBarEnnemy" style="height:100%;background-color: blue;">
+        {{manaOfEnnemy}}/{{maxManaOfEnnemy}}
+      </div>
+    </div>
+    <div class="{{gameroomObject.nameOfEnnemy}} ennemyHero" *ngIf="castSpellSelected" style="position: absolute;height:110px;width:110px;margin-left:46%;background-color:red;top:-25px;border-radius:100%;opacity:0.3"></div>
+    <div *ngIf="gameroomObject" style="position: absolute;margin-left:13%;margin-top:1.5%;color:black;z-index:9000"><h2>{{gameroomObject.nameOfEnnemy}}</h2></div>
+    <img *ngIf="gameroomObject" src="../../assets/heroportraits/{{gameroomObject.heroOfEnnemy}}.png"
+      style="height:150%;margin:auto;margin-left:46.2%;border-radius:100%;margin-top:-1.5%;border:solid">
+  </div>
+
+  <div (click)="pickCard()"
+    style="cursor: pointer;width:170px;height:240px;background-image: url(../../assets/backgrounds/stat-back.jpg);position:absolute;margin-top:45vh;margin-left:85vw;z-index: -2;border:solid">
+    <h2>Pick Card<br> (uses <span style="color:blue">35 </span> <i style="font-size:20px;color:blue;"
+        class="fas fa-adjust"></i>)</h2>
+  </div>
+
+  <div *ngIf="laidCardsHero[0]">
+    <div id="laidCardElement1" #laidCardElement1 class="{{laidCardsHero[0].nameOfCard}} laidHeroCard"
+    style="width:120px;border-radius:5px;border:solid;padding-top:5px;padding-bottom:5px;background-color:black;position:absolute;margin-top:35vh;margin-left:15vw;z-index: -2;background-image: url(../../assets/backgrounds/card-background.jpg)">
+    <h3 style="text-align:center;margin-top:2px;margin-bottom:-2px;height:18px;overflow:hidden;">{{laidCardsHero[0].nameOfCard}}</h3>
+    <i style="font-size:16px;margin-left:5px;color:red;margin-top:5px;" class="fas fa-heart">{{laidCardsHero[0].hp}}</i>
+    <i style="font-size:16px;margin-left:5px;margin-top:5px;color:red;"
+        class="fas fa-fire">{{laidCardsHero[0].hpUseForSpell}}</i>
+    <img style="height:80px;width:70%;margin-left:15%;margin-top:10px;margin-bottom:5px;"
+      src="{{laidCardsHero[0].imgURL}}">
+    <b (click)="cardSpellActivated(laidCardsHero[0].nameOfCard,laidCardElement1)" class="hoverButton"
+      style="background-color:yellow;cursor:pointer;border-radius:5px;padding:5%;width:90%;display:block;text-align: center;font-size:0.85vw;">{{laidCardsHero[0].specialAbility}}</b>
+    <b (click)="attackCardActivated(laidCardsHero[0].nameOfCard,laidCardElement1)" class="hoverButton"
+      style="background-color:orange;cursor:pointer;border-radius:5px;padding:5%;width:90%;display:block;font-size:0.85vw;"><i
+        style="font-size:1vw;margin-left:5px;color:red" class="fas fa-fist-raised">{{-(laidCardsHero[0].attack)}}</i>
+      Attack <i style="font-size:1vw;color:blue;" class="fas fa-adjust">{{laidCardsHero[0].manaCost/2}}</i></b>
+  </div>
+  </div>
+  
+  <div *ngIf="laidCardsHero[1]">
+    <div id="laidCardElement2" #laidCardElement2 class="{{laidCardsHero[1].nameOfCard}} laidHeroCard"
+    style="width:120px;border-radius:5px;border:solid;padding-top:5px;padding-bottom:5px;background-color:black;position:absolute;margin-top:35vh;margin-left:25vw;z-index: -2;background-image: url(../../assets/backgrounds/card-background.jpg)">
+    <h3 style="text-align:center;margin-top:2px;margin-bottom:-2px;height:18px;overflow:hidden;">{{laidCardsHero[1].nameOfCard}}</h3>
+    <i style="font-size:16px;margin-left:5px;color:red;margin-top:5px;" class="fas fa-heart">{{laidCardsHero[1].hp}}</i>
+    <i style="font-size:16px;margin-left:5px;margin-top:5px;color:red;"
+        class="fas fa-fire">{{laidCardsHero[1].hpUseForSpell}}</i>
+    <img style="height:80px;width:70%;margin-left:15%;margin-top:10px;margin-bottom:5px;"
+      src="{{laidCardsHero[1].imgURL}}">
+    <b (click)="cardSpellActivated(laidCardsHero[1].nameOfCard,laidCardElement2)" class="hoverButton"
+      style="background-color:yellow;cursor:pointer;border-radius:5px;padding:5%;width:90%;display:block;text-align: center;font-size:0.85vw;">{{laidCardsHero[1].specialAbility}}</b>
+    <b (click)="attackCardActivated(laidCardsHero[1].nameOfCard,laidCardElement2)" class="hoverButton"
+      style="background-color:orange;cursor:pointer;border-radius:5px;padding:5%;width:90%;display:block;font-size:0.8vw;"><i
+        style="font-size:1vw;;margin-left:5px;color:red" class="fas fa-fist-raised">{{-(laidCardsHero[1].attack)}}</i>
+      Attack
+      <i style="font-size:1vw;color:blue;" class="fas fa-adjust">{{laidCardsHero[1].manaCost/2}}</i></b>
+  </div>
+  </div>
+  
+  <div *ngIf="laidCardsHero[2]">
+    <div id="laidCardElement3" #laidCardElement3 class="{{laidCardsHero[2].nameOfCard}} laidHeroCard"
+    style="width:120px;border-radius:5px;border:solid;padding-top:5px;padding-bottom:5px;background-color:black;position:absolute;margin-top:35vh;margin-left:35vw;z-index: -2;background-image: url(../../assets/backgrounds/card-background.jpg)">
+    <h3 style="text-align:center;margin-top:2px;margin-bottom:-2px;height:18px;overflow:hidden;">{{laidCardsHero[2].nameOfCard}}</h3>
+    <i style="font-size:16px;margin-left:5px;color:red;margin-top:5px;" class="fas fa-heart">{{laidCardsHero[2].hp}}</i>
+    <i style="font-size:16px;margin-left:5px;margin-top:5px;color:red;"
+        class="fas fa-fire">{{laidCardsHero[2].hpUseForSpell}}</i>
+    <img style="height:80px;width:70%;margin-left:15%;margin-top:10px;margin-bottom:5px;"
+      src="{{laidCardsHero[2].imgURL}}">
+    <b (click)="cardSpellActivated(laidCardsHero[2].nameOfCard,laidCardElement3)" class="hoverButton"
+      style="background-color:yellow;cursor:pointer;border-radius:5px;padding:5%;width:90%;display:block;text-align: center;font-size:0.85vw;">{{laidCardsHero[2].specialAbility}}</b>
+    <b (click)="attackCardActivated(laidCardsHero[2].nameOfCard,laidCardElement3)" class="hoverButton"
+      style="background-color:orange;cursor:pointer;border-radius:5px;padding:5%;width:90%;display:block;font-size:0.8vw;"><i
+        style="font-size:1vw;margin-left:5px;color:red" class="fas fa-fist-raised">{{-(laidCardsHero[2].attack)}}</i>
+      Attack <i style="font-size:1vw;color:blue;" class="fas fa-adjust">{{laidCardsHero[2].manaCost/2}}</i></b>
+
+  </div>
+  </div>
+
+  <div *ngIf="laidCardsHero[3]">
+    <div id="laidCardElement4" #laidCardElement4 class="{{laidCardsHero[3].nameOfCard}} laidHeroCard"
+    style="width:120px;border-radius:5px;border:solid;padding-top:5px;padding-bottom:5px;background-color:black;position:absolute;margin-top:35vh;margin-left:45vw;z-index: -2;background-image: url(../../assets/backgrounds/card-background.jpg)">
+    <h3 style="text-align:center;margin-top:2px;margin-bottom:-2px;height:18px;overflow:hidden;">{{laidCardsHero[3].nameOfCard}}</h3>
+    <i style="font-size:16px;margin-left:5px;color:red;margin-top:5px;" class="fas fa-heart">{{laidCardsHero[3].hp}}</i>
+    <i style="font-size:16px;margin-left:5px;margin-top:5px;color:red;"
+        class="fas fa-fire">{{laidCardsHero[3].hpUseForSpell}}</i>
+    <img style="height:80px;width:70%;margin-left:15%;margin-top:10px;margin-bottom:5px;"
+      src="{{laidCardsHero[3].imgURL}}">
+    <b (click)="cardSpellActivated(laidCardsHero[3].nameOfCard,laidCardElement4)" class="hoverButton"
+      style="background-color:yellow;cursor:pointer;border-radius:5px;padding:5%;width:90%;display:block;text-align: center;font-size:0.85vw;">{{laidCardsHero[3].specialAbility}}</b>
+    <b (click)="attackCardActivated(laidCardsHero[3].nameOfCard,laidCardElement4)" class="hoverButton"
+      style="background-color:orange;cursor:pointer;border-radius:5px;padding:5%;width:90%;display:block;font-size:0.8vw;"><i
+        style="font-size:1vw;margin-left:5px;color:red" class="fas fa-fist-raised">{{-(laidCardsHero[3].attack)}}</i>
+      Attack <i style="font-size:1vw;color:blue;" class="fas fa-adjust">{{laidCardsHero[3].manaCost/2}}</i></b>
+  </div>
+  </div>
+  
+  <div *ngIf="laidCardsHero[4]">
+    <div id="laidCardElement5" #laidCardElement5 class="{{laidCardsHero[4].nameOfCard}} laidHeroCard"
+    style="width:120px;border-radius:5px;border:solid;padding-top:5px;padding-bottom:5px;background-color:black;position:absolute;margin-top:35vh;margin-left:55vw;z-index: -2;background-image: url(../../assets/backgrounds/card-background.jpg)">
+    <h3 style="text-align:center;margin-top:2px;margin-bottom:-2px;height:18px;overflow:hidden;">{{laidCardsHero[4].nameOfCard}}</h3>
+    <i style="font-size:16px;margin-left:5px;color:red;margin-top:5px;" class="fas fa-heart">{{laidCardsHero[4].hp}}</i>
+    <i style="font-size:16px;margin-left:5px;margin-top:5px;color:red;"
+        class="fas fa-fire">{{laidCardsHero[4].hpUseForSpell}}</i>
+    <img style="height:80px;width:70%;margin-left:15%;margin-top:10px;margin-bottom:5px;"
+      src="{{laidCardsHero[4].imgURL}}">
+    <b (click)="cardSpellActivated(laidCardsHero[4].nameOfCard,laidCardElement5)" class="hoverButton"
+      style="background-color:yellow;cursor:pointer;border-radius:5px;padding:5%;width:90%;display:block;text-align: center;font-size:0.85vw;">{{laidCardsHero[4].specialAbility}}</b>
+    <b (click)="attackCardActivated(laidCardsHero[4].nameOfCard,laidCardElement5)" class="hoverButton"
+      style="background-color:orange;cursor:pointer;border-radius:5px;padding:5%;width:90%;display:block;font-size:0.8vw;"><i
+        style="font-size:1vw;margin-left:5px;color:red" class="fas fa-fist-raised">{{-(laidCardsHero[4].attack)}}</i>
+      Attack <i style="font-size:1vw;color:blue;" class="fas fa-adjust">{{laidCardsHero[4].manaCost/2}}</i></b>
+  </div>
+  </div>
+  
+  <div *ngIf="laidCardsHero[5]">
+    <div id="laidCardElement6" #laidCardElement6 class="{{laidCardsHero[5].nameOfCard}} laidHeroCard"
+    style="width:120px;border-radius:5px;border:solid;padding-top:5px;padding-bottom:5px;background-color:black;position:absolute;margin-top:35vh;margin-left:65vw;z-index: -2;background-image: url(../../assets/backgrounds/card-background.jpg)">
+    <h3 style="text-align:center;margin-top:2px;margin-bottom:-2px;height:18px;overflow:hidden;">{{laidCardsHero[5].nameOfCard}}</h3>
+    <i style="font-size:16px;margin-left:5px;color:red;margin-top:5px;" class="fas fa-heart">{{laidCardsHero[5].hp}}</i>
+    <i style="font-size:16px;margin-left:5px;margin-top:5px;color:red;"
+        class="fas fa-fire">{{laidCardsHero[5].hpUseForSpell}}</i>
+    <img style="height:80px;width:70%;margin-left:15%;margin-top:10px;margin-bottom:5px;"
+      src="{{laidCardsHero[5].imgURL}}">
+    <b (click)="cardSpellActivated(laidCardsHero[5].nameOfCard,laidCardElement6)" class="hoverButton"
+      style="background-color:yellow;cursor:pointer;border-radius:5px;padding:5%;width:90%;display:block;text-align: center;font-size:0.85vw;">{{laidCardsHero[5].specialAbility}}</b>
+    <b (click)="attackCardActivated(laidCardsHero[5].nameOfCard,laidCardElement6)" class="hoverButton"
+      style="background-color:orange;cursor:pointer;border-radius:5px;padding:5%;width:90%;display:block;font-size:0.8vw;"><i
+        style="font-size:1vw;margin-left:5px;color:red" class="fas fa-fist-raised">{{-(laidCardsHero[5].attack)}}</i>
+      Attack <i style="font-size:1vw;color:blue;" class="fas fa-adjust">{{laidCardsHero[5].manaCost/2}}</i></b>
+  </div>
+  </div>
+  
+  <div *ngIf="laidCardsHero[6]">
+    <div id="laidCardElement7" #laidCardElement7 class="{{laidCardsHero[6].nameOfCard}} laidHeroCard"
+    style="width:120px;border-radius:5px;border:solid;padding-top:5px;padding-bottom:5px;background-color:black;position:absolute;margin-top:35vh;margin-left:75vw;z-index: -2;background-image: url(../../assets/backgrounds/card-background.jpg)">
+    <h3 style="text-align:center;margin-top:2px;margin-bottom:-2px;height:18px;overflow:hidden;">{{laidCardsHero[6].nameOfCard}}</h3>
+    <i style="font-size:16px;margin-left:5px;color:red;margin-top:5px;" class="fas fa-heart">{{laidCardsHero[6].hp}}</i>
+    <i style="font-size:16px;margin-left:5px;margin-top:5px;color:red;"
+        class="fas fa-fire">{{laidCardsHero[6].hpUseForSpell}}</i>
+    <img style="height:80px;width:70%;margin-left:15%;margin-top:10px;margin-bottom:5px;"
+      src="{{laidCardsHero[6].imgURL}}">
+    <b (click)="cardSpellActivated(laidCardsHero[6].nameOfCard,laidCardElement7)" class="hoverButton"
+      style="background-color:yellow;cursor:pointer;border-radius:5px;padding:5%;width:90%;display:block;text-align: center;font-size:0.85vw;">{{laidCardsHero[6].specialAbility}}</b>
+    <b (click)="attackCardActivated(laidCardsHero[6].nameOfCard,laidCardElement7)" class="hoverButton"
+      style="background-color:orange;cursor:pointer;border-radius:5px;padding:5%;width:90%;display:block;font-size:0.8vw;"><i
+        style="font-size:1vw;margin-left:5px;color:red" class="fas fa-fist-raised">{{-(laidCardsHero[6].attack)}}</i>
+      Attack <i style="font-size:1vw;color:blue;" class="fas fa-adjust">{{laidCardsHero[6].manaCost/2}}</i></b>
+  </div>
+  </div>
+  
+  <div *ngIf="laidCardsEnnemy[0]">
+    <div id="laidCardEnnemyElement1" #laidCardEnnemyElement1 class="{{laidCardsEnnemy[0].nameOfCard}} laidEnnemyCard"
+    style="overflow:hidden;width:120px;height:170px;border-radius:5px;border:solid;padding-top:5px;padding-bottom:5px;background-color:black;position:absolute;margin-top:10vh;margin-left:15vw;z-index: -2;background-image: url(../../assets/backgrounds/card-background.jpg)">
+    <h3 style="text-align:center;margin-top:2px;margin-bottom:-2px;height:18px;overflow:hidden;">{{laidCardsEnnemy[0].nameOfCard}}</h3>
+    <i style="font-size:16px;margin-left:5px;color:red;margin-top:5px;"
+      class="fas fa-heart">{{laidCardsEnnemy[0].hp}}</i>
+    <i style="font-size:16px;margin-left:5px;color:rgb(240, 182, 25);margin-top:5px;"
+      class="fas fa-fist-raised">{{-(laidCardsEnnemy[0].attack)}}</i>
+    <img style="height:60px;width:45%;margin-left:25%;margin-top:10px;margin-bottom:-5px;"
+      src="{{laidCardsEnnemy[0].imgURL}}">
+    <b
+      style="cursor:pointer;border-radius:5px;padding:5%;width:90%;display:block;text-align: center">{{laidCardsEnnemy[0].specialAbility}}</b>
+    <small>{{laidCardsEnnemy[0].abilityDesc}}</small>
+  </div>
+  </div>
+  
+  <div *ngIf="laidCardsEnnemy[1]">
+    <div id="laidCardEnnemyElement2" #laidCardEnnemyElement2 class="{{laidCardsEnnemy[1].nameOfCard}} laidEnnemyCard"
+    style="overflow:hidden;width:120px;height:170px;border-radius:5px;border:solid;padding-top:5px;padding-bottom:5px;background-color:black;position:absolute;margin-top:10vh;margin-left:25vw;z-index: -2;background-image: url(../../assets/backgrounds/card-background.jpg)">
+    <h3 style="text-align:center;margin-top:2px;margin-bottom:-2px;height:18px;overflow:hidden;">{{laidCardsEnnemy[1].nameOfCard}}</h3>
+    <i style="font-size:16px;margin-left:5px;color:red;margin-top:5px;" class="fas fa-heart">{{laidCardsEnnemy[1].hp}}</i>
+    <i style="font-size:16px;margin-left:5px;color:rgb(240, 182, 25);margin-top:5px;"
+      class="fas fa-fist-raised">{{-(laidCardsEnnemy[1].attack)}}</i>
+    <img style="height:60px;width:45%;margin-left:25%;margin-top:10px;margin-bottom:-5px;"
+      src="{{laidCardsEnnemy[1].imgURL}}">
+    <b
+      style="cursor:pointer;border-radius:5px;padding:5%;width:90%;display:block;text-align: center">{{laidCardsEnnemy[1].specialAbility}}</b>
+    <small>{{laidCardsEnnemy[1].abilityDesc}}</small>
+  </div>
+  </div>
+  
+  <div *ngIf="laidCardsEnnemy[2]">
+    <div id="laidCardEnnemyElement3" #laidCardEnnemyElement3 class="{{laidCardsEnnemy[2].nameOfCard}} laidEnnemyCard"
+    style="overflow:hidden;width:120px;height:170px;border-radius:5px;border:solid;padding-top:5px;padding-bottom:5px;background-color:black;position:absolute;margin-top:10vh;margin-left:35vw;z-index: -2;background-image: url(../../assets/backgrounds/card-background.jpg)">
+    <h3 style="text-align:center;margin-top:2px;margin-bottom:-2px;height:18px;overflow:hidden;">{{laidCardsEnnemy[2].nameOfCard}}</h3>
+    <i style="font-size:16px;margin-left:5px;color:red;margin-top:5px;" class="fas fa-heart">{{laidCardsEnnemy[2].hp}}</i>
+    <i style="font-size:16px;margin-left:5px;color:rgb(240, 182, 25);margin-top:5px;"
+      class="fas fa-fist-raised">{{-(laidCardsEnnemy[2].attack)}}</i>
+    <img style="height:60px;width:45%;margin-left:25%;margin-top:10px;margin-bottom:-5px;"
+      src="{{laidCardsEnnemy[2].imgURL}}">
+    <b
+      style="cursor:pointer;border-radius:5px;padding:5%;width:90%;display:block;text-align: center">{{laidCardsEnnemy[2].specialAbility}}</b>
+    <small>{{laidCardsEnnemy[2].abilityDesc}}</small>
+  </div>
+  </div>
+  
+  <div *ngIf="laidCardsEnnemy[3]">
+    <div id="laidCardEnnemyElement4" #laidCardEnnemyElement4 class="{{laidCardsEnnemy[3].nameOfCard}} laidEnnemyCard"
+    style="overflow:hidden;width:120px;height:170px;border-radius:5px;border:solid;padding-top:5px;padding-bottom:5px;background-color:black;position:absolute;margin-top:10vh;margin-left:45vw;z-index: -2;background-image: url(../../assets/backgrounds/card-background.jpg)">
+    <h3 style="text-align:center;margin-top:2px;margin-bottom:-2px;height:18px;overflow:hidden;">{{laidCardsEnnemy[3].nameOfCard}}</h3>
+    <i style="font-size:16px;margin-left:5px;color:red;margin-top:5px;" class="fas fa-heart">{{laidCardsEnnemy[3].hp}}</i>
+    <i style="font-size:16px;margin-left:5px;color:rgb(240, 182, 25);margin-top:5px;"
+      class="fas fa-fist-raised">{{-(laidCardsEnnemy[3].attack)}}</i>
+    <img style="height:60px;width:45%;margin-left:25%;margin-top:10px;margin-bottom:-5px;"
+      src="{{laidCardsEnnemy[3].imgURL}}">
+    <b
+      style="cursor:pointer;border-radius:5px;padding:5%;width:90%;display:block;text-align: center">{{laidCardsEnnemy[3].specialAbility}}</b>
+    <small>{{laidCardsEnnemy[3].abilityDesc}}</small>
+  </div>
+  </div>
+  
+  <div *ngIf="laidCardsEnnemy[4]">
+    <div id="laidCardEnnemyElement5" #laidCardEnnemyElement5 class="{{laidCardsEnnemy[4].nameOfCard}} laidEnnemyCard"
+    style="overflow:hidden;width:120px;height:170px;border-radius:5px;border:solid;padding-top:5px;padding-bottom:5px;background-color:black;position:absolute;margin-top:10vh;margin-left:55vw;z-index: -2;background-image: url(../../assets/backgrounds/card-background.jpg)">
+    <h3 style="text-align:center;margin-top:2px;margin-bottom:-2px;height:18px;overflow:hidden;">{{laidCardsEnnemy[4].nameOfCard}}</h3>
+    <i style="font-size:16px;margin-left:5px;color:red;margin-top:5px;" class="fas fa-heart">{{laidCardsEnnemy[4].hp}}</i>
+    <i style="font-size:16px;margin-left:5px;color:rgb(240, 182, 25);margin-top:5px;"
+      class="fas fa-fist-raised">{{-(laidCardsEnnemy[4].attack)}}</i>
+    <img style="height:60px;width:45%;margin-left:25%;margin-top:10px;margin-bottom:-5px;"
+      src="{{laidCardsEnnemy[4].imgURL}}">
+    <b
+      style="cursor:pointer;border-radius:5px;padding:5%;width:90%;display:block;text-align: center">{{laidCardsEnnemy[4].specialAbility}}</b>
+    <small>{{laidCardsEnnemy[4].abilityDesc}}</small>
+  </div>
+  </div>
+  
+  <div *ngIf="laidCardsEnnemy[5]" >
+    <div id="laidCardEnnemyElement6" #laidCardEnnemyElement6 class="{{laidCardsEnnemy[5].nameOfCard}} laidEnnemyCard"
+    style="overflow:hidden;width:120px;height:170px;border-radius:5px;border:solid;padding-top:5px;padding-bottom:5px;background-color:black;position:absolute;margin-top:10vh;margin-left:65vw;z-index: -2;background-image: url(../../assets/backgrounds/card-background.jpg)">
+    <h3 style="text-align:center;margin-top:2px;margin-bottom:-2px;height:18px;overflow:hidden;">{{laidCardsEnnemy[5].nameOfCard}}</h3>
+    <i style="font-size:16px;margin-left:5px;color:red;margin-top:5px;" class="fas fa-heart">{{laidCardsEnnemy[5].hp}}</i>
+    <i style="font-size:16px;margin-left:5px;color:rgb(240, 182, 25);margin-top:5px;"
+      class="fas fa-fist-raised">{{-(laidCardsEnnemy[5].attack)}}</i>
+    <img style="height:60px;width:45%;margin-left:25%;margin-top:10px;margin-bottom:-5px;"
+      src="{{laidCardsEnnemy[5].imgURL}}">
+    <b
+      style="cursor:pointer;border-radius:5px;padding:5%;width:90%;display:block;text-align: center">{{laidCardsEnnemy[5].specialAbility}}</b>
+    <small>{{laidCardsEnnemy[5].abilityDesc}}</small>
+  </div>
+  </div>
+  
+  <div *ngIf="laidCardsEnnemy[6]">
+    <div id="laidCardEnnemyElement7" #laidCardEnnemyElement7 class="{{laidCardsEnnemy[6].nameOfCard}} laidEnnemyCard"
+    style="overflow:hidden;width:120px;height:170px;border-radius:5px;border:solid;padding-top:5px;padding-bottom:5px;background-color:black;position:absolute;margin-top:10vh;margin-left:75vw;z-index: -2;background-image: url(../../assets/backgrounds/card-background.jpg)">
+    <h3 style="text-align:center;margin-top:2px;margin-bottom:-2px;height:18px;overflow:hidden;">{{laidCardsEnnemy[6].nameOfCard}}</h3>
+    <i style="font-size:16px;margin-left:5px;color:red;margin-top:5px;" class="fas fa-heart">{{laidCardsEnnemy[6].hp}}</i>
+    <i style="font-size:16px;margin-left:5px;color:rgb(240, 182, 25);margin-top:5px;"
+      class="fas fa-fist-raised">{{-(laidCardsEnnemy[6].attack)}}</i>
+    <img style="height:60px;width:45%;margin-left:25%;margin-top:10px;margin-bottom:-5px;"
+      src="{{laidCardsEnnemy[6].imgURL}}">
+    <b
+      style="cursor:pointer;border-radius:5px;padding:5%;width:90%;display:block;text-align: center">{{laidCardsEnnemy[6].specialAbility}}</b>
+    <small>{{laidCardsEnnemy[6].abilityDesc}}</small>
+  </div>
+  </div>
+  
+
+  <div *ngIf="!mouseEnter" id="showCard"
+    style="border:solid black;background-color:orange;width:170px;height:270px;position: absolute;margin-top:-10%;z-index:-1;margin-left:45%;margin-top:10%;z-index: 100;background-image: url(../../assets/backgrounds/card-background.jpg)">
+    <i style="font-size:20px;margin-left:5px;margin-top:5px;color:blue;"
+      class="fas fa-adjust">{{selectedCard.manaCost}}</i>
+    <h3 style="text-align:center;margin-top:-2px;margin-bottom:-2px;height:18px;overflow:hidden;">{{selectedCard.nameOfCard}}</h3>
+    <img style="height:45%;width:80%;margin-left:10%;margin-top:10px;" src="{{selectedCard.imgURL}}">
+    <b style="margin-left:5px;">{{selectedCard.specialAbility}}</b>
+    <hr>
+    <h2 style="font-size:100%;height:12%;overflow:hidden;margin-bottom: 1px">{{selectedCard.abilityDesc}}</h2>
+    <div style="width:100%;margin:auto;">
+      <i style="font-size:20px;margin-left:5px;color:red" class="fas fa-heart">{{selectedCard.hp}}</i>
+      <i style="font-size:20px;margin-left:5px;color:rgb(240, 182, 25)"
+        class="fas fa-fist-raised">{{-(selectedCard.attack)}}</i>
+      <i style="font-size:20px;margin-left:5px;margin-top:5px;color:red;"
+        class="fas fa-fire">{{selectedCard.hpUseForSpell}}</i>
+    </div>
+  </div>
+  <div style="width:100%;height:2px;background-color:black;position:absolute;top:34.5%;"></div>
+</div>

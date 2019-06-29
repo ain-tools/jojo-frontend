@@ -1,0 +1,138 @@
+<div style="position:absolute;width:100vw;height:100vh;top:0px;left:0px">
+  <div *ngIf="inQueue"
+    style="width:100vw;height:100vh;background-color:black;opacity:0.5;position:absolute;top:0px;left:0px;z-index:50;">
+  </div>
+  <div *ngIf="inQueue"
+    style="position:absolute;width:300px;height:300px;margin-left:50%;margin-top:50%;left:-190px;top:-550px;padding:30px;background-image: url(../../assets/backgrounds/card-background.jpg);z-index:100;border:solid purple;border-radius: 10px;border-width:10px;">
+    <div style="margin:auto;margin-top:10px;margin-bottom:10px;" class="loader"></div>
+    <h2 class="worthyOpp" style="color:purple;text-align:center;">Searching for a worthy opponent</h2>
+    <div (click)="cancelQueue()" style="margin:auto;" class="single">
+      <p style="margin-top:5px;">
+        Cancel Queue</p>
+    </div>
+  </div>
+  <div
+    style="width:100%;height:20%;white-space: nowrap;background-image: url(../../assets/backgrounds/stat-back.jpg);border-bottom: solid orange;cursor: pointer;overflow-x: scroll;overflow-y:hidden;">
+    <div (click)="selectHero('polnareff')"
+      style="width:10%;height:95%;display:inline-block;margin:2.5px;border:solid;border-radius: 5px;">
+      <h2 style="background-color:black;width:100%;color:white;position:sticky;margin-bottom:-27%;">Polnareff</h2>
+      <img style="height:100%;width: 100%;" src="../../assets/heroportraits/polnareff.png">
+    </div>
+    <div (click)="selectHero('avdol')"
+      style="width:10%;height:95%;display:inline-block;margin:2.5px;border:solid;border-radius: 5px;">
+      <h2 style="background-color:black;width:100%;color:white;position:sticky;margin-bottom:-27%;">Avdol</h2>
+      <img style="height:100%;width: 100%;" src="../../assets/heroportraits/avdol.png">
+    </div>
+    <div (click)="selectHero('dio')"
+      style="width:10%;height:95%;display:inline-block;margin:2.5px;border:solid;border-radius: 5px;">
+      <h2 style="background-color:black;width:100%;color:white;position:sticky;margin-bottom:-27%;">Dio</h2>
+      <img style="height:100%;width: 100%;" src="../../assets/heroportraits/dio.png">
+    </div>
+    <div (click)="selectHero('giorno')"
+      style="width:10%;height:95%;display:inline-block;margin:2.5px;border:solid;border-radius: 5px;">
+      <h2 style="background-color:black;width:100%;color:white;position:sticky;margin-bottom:-27%;">Giorno</h2>
+      <img style="height:100%;width: 100%;" src="../../assets/heroportraits/giorno.png">
+    </div>
+    <div (click)="selectHero('jotaro')"
+      style="width:10%;height:95%;display:inline-block;margin:2.5px;border:solid;border-radius: 5px;">
+      <h2 style="background-color:black;width:100%;color:white;position:sticky;margin-bottom:-27%;">Jotaro</h2>
+      <img style="height:100%;width: 100%;" src="../../assets/heroportraits/jotaro.png">
+    </div>
+    <div (click)="selectHero('kakyoin')"
+      style="width:10%;height:95%;display:inline-block;margin:2.5px;border:solid;border-radius: 5px;">
+      <h2 style="background-color:black;width:100%;color:white;position:sticky;margin-bottom:-27%;">Kakyoin</h2>
+      <img style="height:100%;width: 100%;" src="../../assets/heroportraits/kakyoin.png">
+    </div>
+    <div (click)="selectHero('koichi')"
+      style="width:10%;height:95%;display:inline-block;margin:2.5px;border:solid;border-radius: 5px;">
+      <h2 style="background-color:black;width:100%;color:white;position:sticky;margin-bottom:-27%;">Koichi</h2>
+      <img style="height:100%;width: 100%;" src="../../assets/heroportraits/koichi.png">
+    </div>
+    <div (click)="selectHero('okuyasu')"
+      style="width:10%;height:95%;display:inline-block;margin:2.5px;border:solid;border-radius: 5px;">
+      <h2 style="background-color:black;width:100%;color:white;position:sticky;margin-bottom:-27%;">Okuyasu</h2>
+      <img style="height:100%;width: 100%;" src="../../assets/heroportraits/okuyasu.png">
+    </div>
+    <div (click)="selectHero('rohan')"
+      style="width:10%;height:95%;display:inline-block;margin:2.5px;border:solid;border-radius: 5px;">
+      <h2 style="background-color:black;width:100%;color:white;position:sticky;margin-bottom:-27%;">Rohan</h2>
+      <img style="height:100%;width: 100%;" src="../../assets/heroportraits/rohan.png">
+    </div>
+    <div (click)="selectHero('josuke')"
+      style="width:10%;height:95%;display:inline-block;margin:2.5px;border:solid;border-radius: 5px;">
+      <h2 style="background-color:black;width:100%;color:white;position:sticky;margin-bottom:-27%;">Josuke</h2>
+      <img style="height:100%;width: 100%;" src="../../assets/heroportraits/josuke.png">
+    </div>
+    <div (click)="selectHero('joseph')"
+      style="width:10%;height:95%;display:inline-block;margin:2.5px;border:solid;border-radius: 5px;">
+      <h2 style="background-color:black;width:100%;color:white;position:sticky;margin-bottom:-27%;">Joseph</h2>
+      <img style="height:100%;width: 100%;" src="../../assets/heroportraits/joseph.png">
+    </div>
+  </div>
+  <br>
+  <div
+    style="width:25%;margin-left:2%;margin-right:2.5%;background-image: url(../../assets/backgrounds/stat-back.jpg);background-size: contain;border-radius: 10%;height:60%;display: inline-block;float:left;border:solid orange;">
+    <h1 style="border-radius:5px;background-color:black;color:white;text-align: center"><u>Your Stands</u>
+      <small>(choose 12)({{amountOfCardsSelected}})</small></h1>
+    <div style="width:90%;margin:auto;height:80%;overflow-y:scroll;overflow-x:hidden">
+      <div *ngFor="let card of detailedCards" #someCard (click)="selectCard(card.nameOfCard,someCard)"
+        style="border-style: inset;border-color:white;border-width:4px;cursor: pointer;overflow:hiddden;width:140px;background-color: purple;margin:5px;display: inline-block; float:left;background-image: url(../../assets/backgrounds/card-background.jpg)">
+        <i style="font-size:20px;margin-left:5px;margin-top:5px;color:blue;" class="fas fa-adjust">{{card.manaCost}}</i>
+        <h3 style="text-align:center;margin-top:-2px;margin-bottom:-2px;height:18px;overflow:hidden;">{{card.nameOfCard}}</h3>
+        <img style="height:45%;width:80%;margin-left:10%;margin-top:10px;" src="{{card.imgURL}}">
+        <b style="margin-left:5px;">{{card.specialAbility}}</b>
+        <hr>
+        <h2 style="font-size:100%;height:35px;overflow:hidden;margin-top:-0.1%;margin-bottom: 5.5px;">
+          {{card.abilityDesc}}</h2>
+        <div style="width:100%;margin:auto;">
+          <i style="font-size:20px;margin-left:5px;color:red" class="fas fa-heart">{{card.hp}}</i>
+          <i style="font-size:20px;margin-left:5px;color:rgb(240, 182, 25)"
+            class="fas fa-fist-raised">{{-(card.attack)}}</i>
+          <i style="font-size:20px;margin-left:5px;margin-top:5px;color:red;"
+            class="fas fa-fire">{{card.hpUseForSpell}}</i>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    style="width:40%;background-image: url(../../assets/backgrounds/stat-back.jpg);background-size: contain;border-radius: 10%;height:60%;display: block;margin: auto;margin-right:-10%;border:solid orange;border-left: none;display: inline-block;">
+    <h1 style="border-radius:5px;background-color:black;color:white;text-align: center">Choose Your Hero</h1>
+    <div style="width:38%;height:100%;border-radius:50px;">
+      <img *ngIf="heroDetails" style="width:100%;" src="../../assets/hero-stats/{{heroDetails.name}}.png">
+      <h2 *ngIf="heroDetails" style="border-radius:5px;background-color:black;color:white;font-size:150%;">Hero :
+        {{heroDetails.fullName}} (HP:{{heroDetails.hp}},Mana:{{heroDetails.mana}})</h2>
+      <h2 *ngIf="heroDetails" style="border-radius:5px;background-color:black;color:white;font-size:150%;">Ability <i
+          class="fas fa-fist-raised"></i>: {{heroDetails.ability}}<br>
+        <small *ngIf="heroDetails">{{heroDetails.costOfManaSpell}} mana. {{heroDetails.abilityDesc}}</small>
+      </h2>
+    </div>
+    <img style="position:absolute;top:30%;left:45%;height:50%;" src="{{fullBodyIMGUrl}}">
+  </div>
+  <div
+    style="width:25%;margin-right:2%;background-image: url(../../assets/backgrounds/stat-back.jpg);background-size: contain;border-radius: 10%;height:60%;display: inline-block;float:right;border:solid orange;">
+    <h1 style="border-radius:5px;background-color:black;color:white;text-align: center"><u>Profile</u></h1>
+    <br>
+    <h2 style="border-radius:5px;background-color:black;color:white;"> &nbsp; Name: <u
+        *ngIf="playerInfo">{{playerInfo.username}}</u>
+      <div (click)="goToLogin()" class="single">Log In / Create Account</div>
+    </h2>
+    <h2 style="border-radius:5px;background-color:black;color:white;"> &nbsp; Cash: <u
+        *ngIf="playerInfo">${{playerInfo.cash}}</u> </h2>
+    <h2 style="border-radius:5px;background-color:black;color:white;"> &nbsp; Games Played: <u
+        *ngIf="playerInfo">{{playerInfo.gamesPlayed}}</u> </h2>
+    <h2 style="border-radius:5px;background-color:black;color:white;"> &nbsp; Win / Loss: <u
+        *ngIf="playerInfo">{{playerInfo.wins}} / {{playerInfo.losses}}</u> </h2>
+    <h2 style="border-radius:5px;background-color:black;color:white;"> &nbsp; Stands Bought: <u *ngIf="playerInfo">
+        {{playerInfo.standsBought}} </u> </h2>
+    <h2 style="border-radius:5px;background-color:black;color:white;"> &nbsp; Leadership Board position: <u
+        *ngIf="playerInfo">Tournament not open yet!</u> </h2>
+  </div>
+  <b *ngIf="warningText"
+    style="position:absolute;top:80vh;left:37.5vw;z-index:20;background-image: url(../../assets/backgrounds/stat-back.jpg);-webkit-text-stroke: 1px black;color:red;font-size: 150%;padding:10px;border:solid orange;border-radius:5px;">{{warningText}}</b>
+  <div (click)="queueForGame()" style="margin:auto;" class="single">
+    <p>PLAY</p>
+  </div>
+</div>
+<div (click)="goToMenu()" style="position:absolute;bottom:5px;left:5px;" class="single">
+  <p style="margin-top:5px;">
+    < Back</p> </div>

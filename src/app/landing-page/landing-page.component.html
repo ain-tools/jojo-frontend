@@ -1,0 +1,9 @@
+<div class="module" style="margin-top:40vh;padding-top:30px;" id="allthethings">
+  <div id="left"></div>
+	<div (click)="goToHeroSelection()" id="single"><p>PLAY ONLINE</p></div>
+  <div (click)="goToCardShop()" id="multiplayer"><p>CARD SHOP</p></div>
+  <div *ngIf="!isUserLoggedIn" (click)="goToLogin()" id="options"><p>LOG IN</p></div>
+  <div *ngIf="isUserLoggedIn" (click)="logout()" id="options"><p>LOG OUT</p></div>
+<!--  <div id="credits"><p>PATREON</p></div>-->
+  <div id="right"></div>
+</div>

@@ -1,0 +1,75 @@
+.single {
+    bottom:330px;
+    right:300px;
+    height:50px;
+    width:300px;
+    background:#790197;
+    text-align:center;
+    font-size:30px;
+    background-size: 1px 300%;
+    -webkit-transition:0.5s;
+    transition:0.5s;
+    color:orange;
+    font-family: 'Germania One', cursive;  
+    cursor:pointer;
+  }
+  
+  .single:hover {
+    background:yellow;
+    color:white;
+    -webkit-transform:rotate(-1deg);
+    transform:rotate(-2deg);
+  }
+  
+  .single p {
+    position:relative;
+    top:2px;
+    right:4px;
+  }
+  .wrapper{
+    background-image: url(../../assets/backgrounds/sand-simple-background-picture.jpg);
+    background-size:100%;
+    overflow:hidden;
+  }
+  .hoverButton:hover{
+    color:white;
+  }
+  .selectDiv{
+    position:absolute;
+    width:100%;
+    height:100%;
+    top:0px;
+    left:0px;
+    background-color:yellow;
+    opacity:0.6;
+    cursor:pointer;
+  }
+  #arrow{
+    position: absolute;
+    left:46%;
+    bottom:50px;
+    background-image: url(../../assets/misc/arrow.gif);
+    height:0px;
+    width:100px;
+    -webkit-transform-origin: center bottom;
+    pointer-events: none;
+  }
+  #cardArrow{
+    position: absolute;
+    left:46%;
+    bottom:350px;
+    background-image: url(../../assets/misc/arrow.gif);
+    height:0px;
+    width:100px;
+    -webkit-transform-origin: center bottom;
+    pointer-events: none;
+  }
+  #triangle-up {
+    width: 0;
+    height: 0;
+    background-image: url(../../assets/misc/arrow.gif);
+    border-left: 50px solid transparent;
+    border-right: 50px solid transparent;
+    border-bottom: 100px solid;
+    margin-top:-100px;
+  }
